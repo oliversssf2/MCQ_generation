@@ -2,6 +2,7 @@ import os
 import logging
 from dataclasses import dataclass, field
 from typing import List, Dict
+from helper_scripts.argparser import get_arg_dicts
 
 import datasets
 from numpy.lib.utils import source
@@ -125,56 +126,50 @@ def save_train_valid_tok(train_data, valid_data, tokenizer, training_config):
     logger.info('saved tokenizer at {}'.format(os.path.join(path, tokenizer_file_name)))
     
 def train():
-    args_dict = {
+    model_args_dict = {
         "model_name_or_path": "t5-small",
         "model_type": "t5",
         "tokenizer_name_or_path": "tokenizers/t5_qg_tokenizer",
-        "output_dir": "output_models/model_e2e_qg_hl_t5",
         "train_file_path": "demos_data/train_data_e2e_qg_hl_t5",
         "valid_file_path": "demos_data/valid_data_e2e_qg_hl_t5",
-        "per_device_train_batch_size": 32,
-        "per_device_eval_batch_size": 32,
+    }
+
+    training_args_dict = {
+        "output_dir": "output_models/model_e2e_qg_hl_t5",
+        "per_device_train_batch_size": 6,
+        "per_device_eval_batch_size": 3,
         "gradient_accumulation_steps": 8,
         "learning_rate": 1e-4,
         "num_train_epochs": 10,
         "seed": 42,
-        "do_train": True,
-        "do_eval": True,
-        "evaluate_during_training": True,
-        "logging_steps": 100
+        "do_train": 1,
+        "do_eval": 1,
+        # "evaluate_during_training": 1,
+        "logging_steps": 100,
+        "prediction_loss_only": True,
+        "fp16_full_eval": True,
+        "evaluation_strategy": "epoch"
     }
 
-    training_args = transformers.TrainingArguments(
-        output_dir=args_dict['output_dir'],
-        num_train_epochs=10,
-        per_device_train_batch_size=8,
-        per_device_eval_batch_size=3,
-        learning_rate=1e-4,
-        gradient_accumulation_steps=8,
-        do_train=True,
-        do_eval=True,
-        # evaluate_during_training=True,
-        logging_steps=100,
-        evaluation_strategy='epoch',
-        prediction_loss_only=True,
-        fp16_full_eval=True
-    )
+    model_args_dict, training_args_dict = get_arg_dicts(model_args_dict, training_args_dict)
 
-    tokenizer = transformers.AutoTokenizer.from_pretrained(args_dict['tokenizer_name_or_path'])
+    training_args = transformers.TrainingArguments(**training_args_dict)
+
+    tokenizer = transformers.AutoTokenizer.from_pretrained(model_args_dict['tokenizer_name_or_path'])
     
     model = transformers.AutoModelForSeq2SeqLM.from_pretrained(
-        args_dict['model_name_or_path']
+        model_args_dict['model_name_or_path']
     )
     model.resize_token_embeddings(len(tokenizer))
 
-    train_set = datasets.load_from_disk(args_dict['train_file_path'])
+    train_set = datasets.load_from_disk(model_args_dict['train_file_path'])
     train_set = train_set.remove_columns(['source_text', 'target_text','task'])
     train_set = train_set.rename_column('source_ids', 'input_ids')
     train_set = train_set.rename_column('target_ids', 'labels')
     
     train_set.set_format('torch')
 
-    valid_set = datasets.load_from_disk(args_dict['valid_file_path'])
+    valid_set = datasets.load_from_disk(model_args_dict['valid_file_path'])
     valid_set = valid_set.remove_columns(['source_text', 'target_text', 'task'])
     valid_set = valid_set.rename_column('source_ids', 'input_ids')
     valid_set = valid_set.rename_column('target_ids', 'labels')
@@ -185,7 +180,7 @@ def train():
 
     data_collator = T2TDataCollator(
         tokenizer=tokenizer,
-        model_type=args_dict['model_type'],
+        model_type=model_args_dict['model_type'],
         mode="training",
         # using_tpu=False
     )

@@ -1,0 +1,24 @@
+{"obj": {"type": "AssignString", "path": ["sys", "name"], "value": "Untitled"}, "version": 1}
+{"obj": {"type": "AssignString", "path": ["sys", "description"], "value": ""}, "version": 2}
+{"obj": {"type": "AssignString", "path": ["sys", "hostname"], "value": "fongsu-MS-7A78"}, "version": 3}
+{"obj": {"type": "AssignBool", "path": ["sys", "failed"], "value": false}, "version": 4}
+{"obj": {"type": "ClearStringLog", "path": ["monitoring", "stdout"]}, "version": 5}
+{"obj": {"type": "ClearStringLog", "path": ["monitoring", "stderr"]}, "version": 6}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "psutil is not installed. Hardware metrics will not be collected.\n", "step": null, "ts": 1629875843.2163742}]}, "version": 7}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "", "step": null, "ts": 1629875843.259313}]}, "version": 8}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "https://app.neptune.ai/oliversssf2/qg-demo/e/QGDEMO-1\n", "step": null, "ts": 1629875843.268385}]}, "version": 9}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "Remember to stop your run once you\u2019ve finished logging your metadata (https://docs.neptune.ai/api-reference/run#stop). It will be stopped automatically only when the notebook kernel/interactive console is terminated.\n", "step": null, "ts": 1629875843.2725098}]}, "version": 10}
+{"obj": {"type": "AssignFloat", "path": ["parameters", "learning_rate"], "value": 0.001}, "version": 11}
+{"obj": {"type": "AssignString", "path": ["parameters", "optimizer"], "value": "Adam"}, "version": 12}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 1.0, "step": null, "ts": 1629875843.2794857}]}, "version": 13}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 0.9, "step": null, "ts": 1629875843.2801669}]}, "version": 14}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 0.81, "step": null, "ts": 1629875843.280669}]}, "version": 15}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 0.7290000000000001, "step": null, "ts": 1629875843.2811518}]}, "version": 16}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 0.6561, "step": null, "ts": 1629875843.2816224}]}, "version": 17}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 0.5904900000000001, "step": null, "ts": 1629875843.2820628}]}, "version": 18}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 0.531441, "step": null, "ts": 1629875843.2827864}]}, "version": 19}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 0.4782969000000001, "step": null, "ts": 1629875843.283248}]}, "version": 20}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 0.4304672100000001, "step": null, "ts": 1629875843.2837033}]}, "version": 21}
+{"obj": {"type": "LogFloats", "path": ["train", "loss"], "values": [{"value": 0.3874204890000001, "step": null, "ts": 1629875843.2842085}]}, "version": 22}
+{"obj": {"type": "AssignFloat", "path": ["eval", "f1_score"], "value": 0.66}, "version": 23}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "Shutting down background jobs, please wait a moment...\n", "step": null, "ts": 1629875843.2860458}]}, "version": 24}
