@@ -128,8 +128,8 @@ def train():
     args_dict = {
         "model_name_or_path": "t5-small",
         "model_type": "t5",
-        "tokenizer_name_or_path": "demos_data/tokenizer_hl_t5",
-        "output_dir": "output_data/model_e2e_qg_hl_t5",
+        "tokenizer_name_or_path": "tokenizers/t5_qg_tokenizer",
+        "output_dir": "output_models/model_e2e_qg_hl_t5",
         "train_file_path": "demos_data/train_data_e2e_qg_hl_t5",
         "valid_file_path": "demos_data/valid_data_e2e_qg_hl_t5",
         "per_device_train_batch_size": 32,
@@ -225,8 +225,8 @@ def create_and_save_dataset():
     save_train_valid_tok(train_data, valid_data, tokenizer, training_config)
 
 def simple_example():
-    model = transformers.AutoModelForSeq2SeqLM.from_pretrained('output_data/model_qg_hl_t5')
-    tokenizer = transformers.AutoTokenizer.from_pretrained('t5_qg_tokenizer')
+    model = transformers.AutoModelForSeq2SeqLM.from_pretrained('output_models/model_qg_hl_t5')
+    tokenizer = transformers.AutoTokenizer.from_pretrained('tokenizers/t5_qg_tokenizer')
 
     eval = datasets.load_from_disk('demos_data/valid_data_qg_hl_t5/')
     eval_clean = eval.remove_columns(['source_text', 'target_text','task', 'target_ids'])
@@ -250,7 +250,7 @@ def simple_example():
 if __name__ == "__main__":
     # create_and_save_dataset()
     # main()
-    # test_generated_dataset('demos_data/train_data_ans_ext_hl_t5/', 'demos_data/tokenizer_hl_t5/')
+    # test_generated_dataset('demos_data/train_data_ans_ext_hl_t5/', 'tokenizers/t5_qg_tokenizer/')
     train()
     # simple_example()
 
