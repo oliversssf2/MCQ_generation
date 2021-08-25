@@ -246,10 +246,15 @@ if __name__ == "__main__":
     # create_and_save_dataset()
     # main()
     # test_generated_dataset('demos_data/train_data_ans_ext_hl_t5/', 'tokenizers/t5_qg_tokenizer/')
-    train()
+    # train()
     # simple_example()
 
     # eval = datasets.load_from_disk('demos_data/valid_data_qg_hl_t5/')
     # print(eval.features)
+    import torch_xla.distributed.xla_multiprocessing as xmp
+    xmp.spawn(_mp_fn, args=(), nprocs=8, start_method='fork')
 
+    
 
+def _mp_fn(index):
+    train()

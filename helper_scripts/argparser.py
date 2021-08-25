@@ -38,7 +38,7 @@ def get_arg_dicts(default_model_args_dict = default_model_args_dict,
 
     for name, default_value in default_model_args_dict.items():
         parser.add_argument('--'+name, default=default_value, type=type(default_value))
-        print(type(default_value))
+        # print(type(default_value))
     
     for name, default_value in default_training_args_dict.items():
         parser.add_argument('--'+name, default=default_value, type=type(default_value))
