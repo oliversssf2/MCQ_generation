@@ -23,3 +23,16 @@ python data_example_pipelines.py \
 --train_save_path "../demos_data/train_data_qg_hl_t5_tf" \
 --valid_save_path "../demos_data/valid_data_qg_hl_t5_tf" \
 --tokenizer_path "../tokenizers/t5_qg_tokenizer"
+
+
+python data_example_pipelines.py \
+--model_type "t5" \
+--model "t5-small" \
+--data_name "highlight_qg_format" \
+--task "qg" \
+--qg_format "hl" \
+--max_source_length 512 \
+--dataset_path "../data/squad_multitask" \
+--train_save_path "${DATA_DIR}/train_data_qg_hl_t5_tf" \
+--valid_save_path "${DATA_DIR}valid_data_qg_hl_t5_tf" \
+--tokenizer_path "../tokenizers/t5_qg_tokenizer"

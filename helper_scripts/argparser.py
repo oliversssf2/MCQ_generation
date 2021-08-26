@@ -77,7 +77,7 @@ default_dataset_processing_args = {
     "dataset_path": "../data/squad_multitask",
     "train_save_path": "../demos_data/train_data_qg_hl_t5_tf",
     "valid_save_path": "../demos_data/valid_data_qg_hl_t5_tf",
-    "tokenizer_path":None
+    "tokenizer_path":"../tokenizers/t5_qg_tokenizer"
 }
 
 def get_dataset_arg_dict(dataset_arg_dict=default_dataset_processing_args):
