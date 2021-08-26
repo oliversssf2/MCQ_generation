@@ -11,6 +11,20 @@ python train.py \
 --save_dir "../output_models" \
 --tpu 0
 
+python3 train.py \
+--train_data_path "${DATA_DIR}/train_data_qg_hl_t5_tf" \
+--valid_data_path "${DATA_DIR}/valid_data_qg_hl_t5_tf" \
+--warmup_steps 0.001 \
+--batch_size 64 \
+--epoch 10 \
+--encoder_max_len 250 \
+--decoder_max_len 54 \
+--buffer_size 100 \
+--experiment_name "t5_hl_tf" \
+--save_dir "${MODEL_DIR}" \
+--tpu 1
+
+
 
 python data_example_pipelines.py \
 --model_type "t5" \
@@ -34,5 +48,5 @@ python data_example_pipelines.py \
 --max_source_length 512 \
 --dataset_path "../data/squad_multitask" \
 --train_save_path "${DATA_DIR}/train_data_qg_hl_t5_tf" \
---valid_save_path "${DATA_DIR}valid_data_qg_hl_t5_tf" \
+--valid_save_path "${DATA_DIR}/valid_data_qg_hl_t5_tf" \
 --tokenizer_path "../tokenizers/t5_qg_tokenizer"

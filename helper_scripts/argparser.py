@@ -96,6 +96,7 @@ default_training_args = {
     "valid_data_path":"../demos_data/valid_data_qg_hl_t5_tf",
     "warmup_steps" : 1e4,
     "batch_size" : 4,
+    "epoch": 5,
     "encoder_max_len" : 250,
     "decoder_max_len" : 54,
     "buffer_size" : 1000,
