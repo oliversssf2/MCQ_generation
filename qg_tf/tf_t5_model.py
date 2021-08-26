@@ -7,7 +7,8 @@ class TFT5(TFT5ForConditionalGeneration):
     def __init__(self, *args, log_dir=None, cache_dir= None, **kwargs):
         super().__init__(*args, **kwargs)
         self.loss_tracker= tf.keras.metrics.Mean(name='loss') 
-    
+
+
     @tf.function
     def train_step(self, data):
         x = data

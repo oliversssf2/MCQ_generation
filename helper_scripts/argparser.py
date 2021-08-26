@@ -91,6 +91,30 @@ def get_dataset_arg_dict(dataset_arg_dict=default_dataset_processing_args):
 
     return dataset_args_dict
     
+default_training_args = {
+    "train_data_path":"../demos_data/train_data_qg_hl_t5_tf",
+    "valid_data_path":"../demos_data/valid_data_qg_hl_t5_tf",
+    "warmup_steps" : 1e4,
+    "batch_size" : 4,
+    "encoder_max_len" : 250,
+    "decoder_max_len" : 54,
+    "buffer_size" : 1000,
+    "experiment_name": "t5_qg_hl",
+    "save_dir": "../output_models",
+    "tpu":0
+}
+
+def get_training_arg_dict(training_arg_dict=default_training_args):
+    parser = argparse.ArgumentParser()
+    
+    for name, default_value in default_training_args.items():
+        parser.add_argument('--'+name, default=default_value, type=type(default_value))
+    
+    training_args = parser.parse_args()
+    training_args_dict = vars(training_args)
+
+    return training_args_dict
+    
 
 
 if __name__ == '__main__':
