@@ -39,7 +39,7 @@ python data_example_pipelines.py \
 --tokenizer_path "../tokenizers/t5_qg_tokenizer"
 
 
-python data_example_pipelines.py \
+python3 data_example_pipelines.py \
 --model_type "t5" \
 --model "t5-small" \
 --data_name "highlight_qg_format" \

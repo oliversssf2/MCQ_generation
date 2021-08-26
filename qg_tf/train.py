@@ -115,7 +115,7 @@ if __name__ == "__main__":
     model.compile(optimizer=optimizer, metrics=metrics)
 
     epochs_done = 0
-    model.fit(tf_train_ds, epochs=1, steps_per_epoch=steps, callbacks=callbacks, 
+    model.fit(tf_train_ds, epochs=training_args["epoch"], steps_per_epoch=steps, callbacks=callbacks, 
           validation_data=tf_valid_ds, validation_steps=valid_steps, initial_epoch=epochs_done)
     print("training_done")
 
