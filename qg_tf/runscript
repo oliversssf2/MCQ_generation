@@ -14,7 +14,7 @@ python train.py \
 python3 train.py \
 --train_data_path "${DATA_DIR}/train_data_qg_hl_t5_tf" \
 --valid_data_path "${DATA_DIR}/valid_data_qg_hl_t5_tf" \
---warmup_steps 0.001 \
+--warmup_steps 100 \
 --batch_size 64 \
 --epoch 10 \
 --encoder_max_len 250 \

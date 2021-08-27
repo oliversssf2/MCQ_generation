@@ -48,6 +48,8 @@ training_args = {
 }
 
 if __name__ == "__main__":
+    tf_logger = tf.get_logger().setLevel("ERROR")
+
     training_args = argparser.get_training_arg_dict(training_args)
 
     if(training_args["tpu"]):
@@ -58,6 +60,7 @@ if __name__ == "__main__":
         tf.tpu.experimental.initialize_tpu_system(tpu)
         strategy = tf.distribute.TPUStrategy(tpu)
 
+    print("All devices: ", tf.config.list_logical_devices('TPU'))
 
     tf_train_ds = tf.data.experimental.load(training_args["train_data_path"])
     tf_valid_ds = tf.data.experimental.load(training_args["valid_data_path"])
@@ -111,8 +114,15 @@ if __name__ == "__main__":
     learning_rate = CustomSchedule()
     # learning_rate = 0.001  # Instead set a static learning rate
     optimizer = tf.keras.optimizers.Adam(learning_rate)
-    model = TFT5.from_pretrained("t5-small")
-    model.compile(optimizer=optimizer, metrics=metrics)
+    
+    
+    if tpu:
+        with strategy.scope():
+            model = TFT5.from_pretrained("t5-small")
+            model.compile(optimizer=optimizer, metrics=metrics)
+    else:
+        model = TFT5.from_pretrained("t5-small")
+        model.compile(optimizer=optimizer, metrics=metrics)
 
     epochs_done = 0
     model.fit(tf_train_ds, epochs=training_args["epoch"], steps_per_epoch=steps, callbacks=callbacks, 
