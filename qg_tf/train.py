@@ -109,7 +109,6 @@ if __name__ == "__main__":
         save_best_only=True)
 
     callbacks = [tensorboard_callback, model_checkpoint_callback] 
-    metrics = [tf.keras.metrics.SparseTopKCategoricalAccuracy(name='accuracy') ]
 
     learning_rate = CustomSchedule()
     # learning_rate = 0.001  # Instead set a static learning rate
@@ -119,11 +118,13 @@ if __name__ == "__main__":
     if tpu:
         with strategy.scope():
             model = TFT5.from_pretrained("t5-small")
+            metrics = [tf.keras.metrics.SparseTopKCategoricalAccuracy(name='accuracy') ]
             model.compile(optimizer=optimizer, metrics=metrics)
     else:
         model = TFT5.from_pretrained("t5-small")
         model.compile(optimizer=optimizer, metrics=metrics)
-
+        metrics = [tf.keras.metrics.SparseTopKCategoricalAccuracy(name='accuracy') ]
+        
     epochs_done = 0
     model.fit(tf_train_ds, epochs=training_args["epoch"], steps_per_epoch=steps, callbacks=callbacks, 
           validation_data=tf_valid_ds, validation_steps=valid_steps, initial_epoch=epochs_done)
